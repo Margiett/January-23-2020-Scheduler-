@@ -100,6 +100,24 @@ class ScheduleListController: UIViewController {
   @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
     isEditingTableView.toggle() // changes a boolean value
   }
+    //MARK: We are connecting the add button in code, insted of connecting via storyboard 
+    @IBAction func createEventButtonPressed(_ sender: UIBarButtonItem) {
+        showCreateEventVC()
+    }
+    private func showCreateEventVC() {
+        //MARK: StoryBoard 01/23
+        //MARK: we need to use the storyboard to get an instance of the CreatEventController 01/23
+        guard let createEventController = storyboard?.instantiateViewController(identifier: "CreateEventController") as? CreateEventController else {
+            fatalError("could not downcast to CreateEventController")
+        }
+       //MARK: let createEC = CreateEventController() - create an empty view controller without an outlet, etc will crash if you are expecting your outlets to work if they exist in the storyboard 01/23
+        
+        //TODO:
+        // MARK: for updating an event we will inject ("dependency injection") the selected event 01/23
+        //MARK: createEventController.event = event 01/23
+        present(createEventController, animated: true)
+        
+    }
 }
 
 // MARK:- UITableViewDataSource
