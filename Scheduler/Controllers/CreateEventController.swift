@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum EventState {
+  case newEvent
+  case existingEvent
+}
+
 class CreateEventController: UIViewController {
   
   @IBOutlet weak var eventNameTextField: UITextField!
@@ -18,7 +23,9 @@ class CreateEventController: UIViewController {
   
   // private for setting
   // public for getting
+     //MARK: the event is public for reading but you can not change it outside the createeventcontroller // public = you can see it private = you can not change it  01/23
   public private(set) var eventState = EventState.newEvent
+   
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,7 +37,7 @@ class CreateEventController: UIViewController {
   }
    
   private func updateUI() {
-    if let event = event {
+    if let event = event { //MARK: Coming from didSelectRowAt (existing event) 01/23
       self.event = event
       datePicker.date = event.date
       eventNameTextField.text = event.name

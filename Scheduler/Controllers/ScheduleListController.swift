@@ -40,6 +40,7 @@ class ScheduleListController: UIViewController {
     print(FileManager.getDocumentsDirectory())
     
     tableView.dataSource = self
+    tableView.delegate = self
     
     loadItems()
   }
@@ -100,11 +101,12 @@ class ScheduleListController: UIViewController {
   @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
     isEditingTableView.toggle() // changes a boolean value
   }
-    //MARK: We are connecting the add button in code, insted of connecting via storyboard 
+    //MARK: We are connecting the add button in code, insted of connecting via storyboard 01/23
     @IBAction func createEventButtonPressed(_ sender: UIBarButtonItem) {
         showCreateEventVC()
     }
-    private func showCreateEventVC() {
+    private func showCreateEventVC(_ event: Event? = nil) { //MARK: Event? = nil is a default parameter 01/23
+        
         //MARK: StoryBoard 01/23
         //MARK: we need to use the storyboard to get an instance of the CreatEventController 01/23
         guard let createEventController = storyboard?.instantiateViewController(identifier: "CreateEventController") as? CreateEventController else {
@@ -112,9 +114,11 @@ class ScheduleListController: UIViewController {
         }
        //MARK: let createEC = CreateEventController() - create an empty view controller without an outlet, etc will crash if you are expecting your outlets to work if they exist in the storyboard 01/23
         
-        //TODO:
+        //TODO: DONE !! 01/23
+       
         // MARK: for updating an event we will inject ("dependency injection") the selected event 01/23
         //MARK: createEventController.event = event 01/23
+         createEventController.event = event
         present(createEventController, animated: true)
         
     }
@@ -167,5 +171,10 @@ extension ScheduleListController: UITableViewDataSource {
     loadItems()
   }
 }
-
+extension ScheduleListController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let event = events[indexPath.row]
+        showCreateEventVC(event)
+    }
+}
 

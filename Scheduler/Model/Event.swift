@@ -8,10 +8,7 @@
 
 import Foundation
 
-enum EventState {
-  case newEvent
-  case existingEvent
-}
+
 
 struct Event: Codable & Equatable {
   let identifier = UUID().uuidString
