@@ -16,7 +16,8 @@ class ScheduleListController: UIViewController {
   private var events = [Event]()
   
   //public let dataPersistence = DataPersistence(filename: "schedules.plist")
-    public let dataPersistence = DataPersistence<Event>(filename: "schedules.plist")
+    
+    public var dataPersistence: DataPersistence<Event>!
   
   private var isEditingTableView = false {
     didSet { // property observer
@@ -154,7 +155,7 @@ extension ScheduleListController: UITableViewDataSource {
       print("deleting..")
       // 1. remove item for the data model e.g events
       events.remove(at: indexPath.row) // remove event from events array
-      
+      print("this is what deletes the whole event")
       // remvoe item from documents directory
       try? dataPersistence.deleteItem(at: indexPath.row)
       
@@ -162,10 +163,12 @@ extension ScheduleListController: UITableViewDataSource {
       tableView.deleteRows(at: [indexPath], with: .automatic)
     default:
       print("......")
+        print("got deleted comepletely")
     }
   }
   
   // MARK:- reordering rows in a table view
+    //MARK: in order to reoder the rows in the table you need to press the the edit button.
   func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
     let eventToMove = events[sourceIndexPath.row] // save the event being moved
     events.remove(at: sourceIndexPath.row)
