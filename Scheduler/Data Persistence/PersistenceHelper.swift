@@ -113,6 +113,7 @@ class DataPersistence<T: Writeable> {
     do {
       try saveItemsToDocumentsDirectory()
         //Step 3 custom delegation - user delegate reference to notify observer of deletion
+        // we use weak to break the strong reference cycle between the delegate object and the DataPersistence class 
         delegate?.didDeleteItem(self, item: deletedItem)
     } catch {
       throw DataPersistenceError.deletingError

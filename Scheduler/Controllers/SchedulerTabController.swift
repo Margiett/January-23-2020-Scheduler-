@@ -34,6 +34,8 @@ class SchedulerTabController: UITabBarController {
         }
         // set dataPersistence property
         recentCompletedController.dataPersistence = dataPersistence
+        //MARK: Step 4. custom delegation - set delegate object 
+        recentCompletedController.dataPersistence.delegate = recentCompletedController
         return navController
       }()
       

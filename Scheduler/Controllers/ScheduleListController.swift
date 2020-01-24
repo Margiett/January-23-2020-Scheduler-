@@ -185,5 +185,10 @@ extension ScheduleListController: UITableViewDelegate {
         let event = events[indexPath.row]
         showCreateEventVC(event)
     }
+    //MARK: this changes instead of delete to completed
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        print("changed deleted buttong to say completed")
+        return "completed"
+    }
 }
 
