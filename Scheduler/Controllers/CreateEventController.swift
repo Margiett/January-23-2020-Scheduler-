@@ -27,14 +27,20 @@ class CreateEventController: UIViewController {
   public private(set) var eventState = EventState.newEvent
    
   
-  override func viewDidLoad() {
+  override func viewDidLoad() { // this gets called once on the initial load of ciew controller
     super.viewDidLoad()
     
     // set the view controller as the delegate for the text field
     eventNameTextField.delegate = self
-        
     updateUI()
   }
+    
+    override func viewWillAppear(_ animated: Bool) { // everytime vc is on screen
+        super.viewWillAppear(true)
+    }
+    override func viewWillDisappear(_ animated: Bool) { // everytime you exist the vc
+        super.viewWillDisappear(true)
+    }
    
   private func updateUI() {
     if let event = event { //MARK: Coming from didSelectRowAt (existing event) 01/23
